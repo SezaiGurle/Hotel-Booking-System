@@ -1,4 +1,3 @@
-<!-- main_page.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,6 +9,11 @@
         .navbar {
             overflow: hidden;
             background-color: #333;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
         }
 
         .navbar a {
@@ -34,17 +38,49 @@
         /* Card styles */
         .card {
             border: 1px solid #ccc;
-            border-radius: 5px;
-            padding: 16px;
-            margin: 16px;
-            width: 200px;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px;
+            width: 300px;
             display: inline-block;
             text-align: center;
             cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease;
         }
 
         .card:hover {
-            background-color: #f0f0f0;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Search Form */
+        .search-form {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .search-input {
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ccc;
+            width: 300px;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .search-button {
+            padding: 10px 20px;
+            border-radius: 20px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-button:hover {
+            background-color: #555;
         }
     </style>
 </head>
@@ -60,14 +96,17 @@
         {% endif %}
     </div>
 
-    <h1>Hotel Booking System</h1>
+    <h1 style="margin-top: 80px;">Hotel Booking System</h1>
     
     <!-- Search Form -->
-    <form action="{{ url_for('search_hotels') }}" method="POST">
-        <input type="text" name="hotel_name" placeholder="Enter hotel name">
-        <button type="submit">Search</button>
+    <form class="search-form" action="{{ url_for('search_hotels') }}" method="POST">
+        <input type="text" name="hotel_name" class="search-input" placeholder="Enter hotel name">
+        <button type="submit" class="search-button">Search</button>
     </form>
 
     <!-- Hotel Cards -->
     <div id="hotel-cards">
-       
+        <!-- Add your hotel cards here -->
+    </div>
+</body>
+</html>
