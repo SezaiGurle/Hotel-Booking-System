@@ -1,24 +1,35 @@
-# Hotel Booking App
- 
-This code is a Flask application that handles various functionalities such as user registration, session management, database operations, communication with RabbitMQ message queue, etc. Here are the key functions:
+# Flask Booking System
 
-register: Creates user registration and sends a message to a RabbitMQ queue after registration is completed.
-login: Provides user login functionality. Upon successful login, it redirects the user to either the admin panel if they are an admin or the main page if they are not.
-admin_required: Restricts access to a function to only admin users.
-admin_dashboard: Displays the admin dashboard.
-manage_users: Provides CRUD (Create, Read, Update, Delete) operations for managing users.
-manage_hotels: Provides CRUD operations for managing hotels.
-search_hotels: Provides hotel search functionality.
-hotel_detail: Displays details of a specific hotel.
-test_db: Tests the database connection.
-Key components of the code include:
+This Flask application serves as a booking system with user registration, authentication, and management functionalities. It includes features like hotel management, user roles (admin/non-admin), and integrates with RabbitMQ for asynchronous messaging.
 
-It uses psycopg2 for database operations.
-Utilizes Flask's built-in session management and Flask JWT Extended for user authentication.
-Passwords are hashed using Werkzeug's generate_password_hash and check_password_hash functions.
-Uses pika library for asynchronous message queue operations.
-The application incorporates important security measures:
+## Key Features
 
-Passwords are not stored in plain text in the database; instead, they are hashed.
-JWT (JSON Web Token) is used for user authentication.
-Access control is enforced for admin functionalities, allowing access only to authorized users.
+- **User Registration**: Users can register with unique usernames and hashed passwords.
+- **User Authentication**: Secure login mechanism with password hashing and JWT-based authentication.
+- **Admin Panel**: Admin users have access to an admin dashboard for managing users and hotels.
+- **Hotel Management**: CRUD operations for managing hotels, including creation, updating, and deletion.
+- **Search Functionality**: Users can search for hotels based on their names.
+- **Database Testing**: Includes a utility for testing database connections.
+
+## Security Measures
+
+- **Password Hashing**: User passwords are hashed using the Werkzeug library for secure storage.
+- **JWT Authentication**: JSON Web Tokens (JWT) are used for user authentication, ensuring secure access to authorized endpoints.
+- **Access Control**: Admin functionalities are restricted to authorized users, preventing unauthorized access.
+
+## Technologies Used
+
+- **Flask**: Web framework for building the application.
+- **PostgreSQL**: Database management system for storing user and hotel data.
+- **RabbitMQ**: Messaging queue for handling asynchronous tasks.
+- **psycopg2**: PostgreSQL adapter for Python.
+- **Flask JWT Extended**: Flask extension for JSON Web Token authentication.
+- **pika**: Python library for RabbitMQ integration.
+
+## Getting Started
+
+1. Clone the repository.
+2. Install dependencies with `pip install -r requirements.txt`.
+3. Set up a PostgreSQL database and RabbitMQ server.
+4. Configure database and RabbitMQ connection details in the application.
+5. Run the Flask application with `python app.py`.
