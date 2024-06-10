@@ -1,0 +1,41 @@
+<!-- templates/manage_hotels.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Manage Hotels</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Manage Hotels</h1>
+    <form method="POST">
+        <input type="hidden" name="action" value="create">
+        <label>Hotel Name: <input type="text" name="hotelname" required></label><br>
+        <label>Location: <input type="text" name="location" required></label><br>
+        <label>Latitude: <input type="text" name="latitude" required></label><br>
+        <label>Longitude: <input type="text" name="longitude" required></label><br>
+        <label>Price: <input type="text" name="price" required></label><br>
+        <label>Room Type: <input type="text" name="roomtype" required></label><br>
+        <label>Room Count: <input type="text" name="roomcount" required></label><br>
+        <button type="submit">Add Hotel</button>
+    </form>
+
+    <h2>Existing Hotels</h2>
+    <ul>
+        {% for hotel in hotels %}
+        <li>
+            {{ hotel[1] }} ({{ hotel[2] }}) - ${{ hotel[3] }}<br>
+            Latitude: {{ hotel[4] }}, Longitude: {{ hotel[5] }}<br>
+            Room Type: {{ hotel[6] }}, Room Count: {{ hotel[7] }}<br>
+            <form method="POST" style="display:inline;">
+                <input type="hidden" name="action" value="delete">
+                <input type="hidden" name="hotel_id" value="{{ hotel[0] }}">
+                <button type="submit">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a>
+</body>
+</html>

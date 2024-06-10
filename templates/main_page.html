@@ -1,0 +1,73 @@
+<!-- main_page.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <style>
+        /* Navbar styles */
+        .navbar {
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        .navbar a {
+            float: left;
+            display: block;
+            color: #f2f2f2;
+            text-align: center;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+        /* Login button style */
+        .login-button {
+            float: right;
+        }
+
+        /* Card styles */
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 16px;
+            margin: 16px;
+            width: 200px;
+            display: inline-block;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .card:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="navbar">
+        {% if session['logged_in'] %}
+            <a href="#" class="login-button">{{ session['user_name'] }}</a>
+            <a href="{{ url_for('logout') }}" class="login-button">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="login-button">Login</a>
+            <a href="{{ url_for('register') }}">Registration</a>
+        {% endif %}
+    </div>
+
+    <h1>Hotel Booking System</h1>
+    
+    <!-- Search Form -->
+    <form action="{{ url_for('search_hotels') }}" method="POST">
+        <input type="text" name="hotel_name" placeholder="Enter hotel name">
+        <button type="submit">Search</button>
+    </form>
+
+    <!-- Hotel Cards -->
+    <div id="hotel-cards">
+       

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+</head>
+<body>
+    <h1>Search Results</h1>
+    
+    <ul>
+        {% for hotel in hotels %}
+            <li>{{ hotel.hotelname }}</li>
+            <!-- Display other hotel details as needed -->
+        {% endfor %}
+    </ul>
+</body>
+</html>

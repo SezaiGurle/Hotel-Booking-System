@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Detail</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        form {
+            margin-top: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="date"],
+        input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #map {
+            height: 400px; /* Harita yüksekliği */
+            width: 100%; /* Harita genişliği */
+            margin-top: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ hotel.hotel_name }}</h1>
+        <p><strong>Destination:</strong> {{ hotel.destination }}</p>
+        <p><strong>Capacity:</strong> {{ hotel.capacity }}</p>
+        
+        <div id="map"></div> <!-- Harita burada görünecek -->
+        
+        <form action="/hotel/{{ hotel.hotel_id }}" method="POST">
+            <label for="start_date">Start Date:</label>
+            <input type="date" id="start_date" name="start_date" required><br>
+            
+            <label for="end_date">End Date:</label>
+            <input type="date" id="end_date" name="end_date" required><br>
+            
+            <label for="num_people">Number of People:</label>
+            <input type="number" id="num_people" name="num_people" min="1" required><br>
+            
+            <button type="submit">Book Now</button>
+        </form>
+    </div>
+
+    <!-- Mapbox GL JS'yi dahil edin -->
+    <script src="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.js"></script>
+    <link href="https://api.mapbox.com/mapbox-gl-js/v2.8.1/mapbox-gl.css" rel="stylesheet" />
+    
+    <script>
+        // Mapbox access token
+        mapboxgl.accessToken = 'pk.eyJ1Ijoic2V6YWkzNSIsImEiOiJjbHdub3Q2cjAxdW5wMmpteTdtZ2htcDVwIn0.Tt6d8m6LRzkeavcYQ_AGYw';
+
+        // Backend'den gelen veriyi JSON olarak al
+        var hotel = JSON.parse('{{ hotel | tojson | safe }}');
+        var hotelLatitude = hotel.latitude;
+        var hotelLongitude = hotel.longitude;
+
+        // Hotel konumu
+        var hotelLocation = [hotelLongitude, hotelLatitude];
+        
+        // Haritayı oluşturun
+        var map = new mapboxgl.Map({
+            container: 'map', // Haritanın görüneceği div
+            style: 'mapbox://styles/mapbox/streets-v11', // Harita stili
+            center: hotelLocation, // Haritanın merkezi
+            zoom: 15 // Yakınlaştırma seviyesi
+        });
+        
+        // Marker ekleyin
+        new mapboxgl.Marker()
+            .setLngLat(hotelLocation)
+            .addTo(map);
+    </script>
+</body>
+</html>
