@@ -33,3 +33,6 @@ This Flask application serves as a booking system with user registration, authen
 3. Set up a PostgreSQL database and RabbitMQ server.
 4. Configure database and RabbitMQ connection details in the application.
 5. Run the Flask application with `python app.py`.
+
+## Video Link
+https://drive.google.com/file/d/1pjhAxU3kQak7Ys3yPlgZkGa3sxo457oX/view?usp=sharing
